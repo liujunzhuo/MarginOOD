@@ -8,8 +8,8 @@ This code is developed based on the code of [CIDER](https://github.com/deeplearn
 ## Training
 
 ````
-sh scripts/train_cider_cifar10.sh
-sh scripts/train_cider_cifar100.sh
+sh scripts/train_cifar10.sh
+sh scripts/train_cifar100.sh
 ````
 
 ## Evaluation
