@@ -4,6 +4,18 @@ This repository contains the offical PyTorch implementation of paper:
 Improving Out-of-Distribution Detection with Margin-Based Prototype Learning. ICONIP 2023
 
 This code is developed based on the code of [CIDER](https://github.com/deeplearning-wisc/cider), and we appreciate their contributions very much. You can download the datasets and find the directory structure there.
+## Overview
+![method.png](method.png)
+
+## Dependencies
+Recommend:
+  - python=3.8
+  - pytorch=1.8.1
+  - torchvision=0.9.1
+  - cudatoolkit=10.1
+
+All experiments are conducted on an Nvidia V100 GPU.
+
 
 ## Training
 
