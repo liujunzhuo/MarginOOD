@@ -8,12 +8,13 @@ This code is developed based on the code of [CIDER](https://github.com/deeplearn
 ## Training
 
 ````
-sh scripts/train_cider_cifar10.sh
-sh scripts/train_cider_cifar100.sh
+sh scripts/train_cifar10.sh
+sh scripts/train_cifar100.sh
 ````
 
 ## Evaluation
 ````
-sh scripts/eval_ckpt_cifar10.sh ckpt_c10 #for CIFAR-10
+sh scripts/eval_ckpt_cifar10.sh ckpt_c10 #for CIFAR-10 
 sh scripts/eval_ckpt_cifar100.sh ckpt_c100 # for CIFAR-100
+# ckpt_c10/c100 is checkpoint name, and the checkpoint shold be placed in the right directory.
 ````

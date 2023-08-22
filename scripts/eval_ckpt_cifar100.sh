@@ -1,4 +1,4 @@
-NAME= xx
+NAME=$1
 ID_DATASET=CIFAR-100
 ID_LOC=datasets/CIFAR100
 OOD_LOC=datasets/small_OOD_dataset

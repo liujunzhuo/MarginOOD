@@ -1,4 +1,4 @@
-NAME=save_name
+NAME=$1
 ID_DATASET=CIFAR-10 
 ID_LOC=datasets/CIFAR10
 OOD_LOC=datasets/small_OOD_dataset
