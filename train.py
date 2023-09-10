@@ -84,8 +84,7 @@ parser.add_argument('--proto_m', default=0.8, type=float,
                     help='weight of prototype update')
 parser.add_argument('--ce', action='store_true',
                     help='ce_loss')
-parser.add_argument('--uniform_init', action='store_true',
-                    help='uniform_init prototype')
+
 parser.add_argument('--mark', default='default', type=str)
 parser.add_argument('--margins', default=0.1, type=float, help='margins for arcface')
 parser.add_argument('--subset', default=False,

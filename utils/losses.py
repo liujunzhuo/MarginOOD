@@ -174,7 +174,7 @@ class MarginLoss(nn.Module):
         threshold = -torch.cos(self.margins)
         self.register_buffer('threshold', threshold, persistent=False)
 
-        # Not sure why, didn't used in our paper. We use easy_margin instead.
+        # Didn't used in our paper. We use easy_margin instead.
         sinm = torch.sin(self.margins) * margins
         self.register_buffer('sinm', sinm, persistent=False)
 
@@ -233,19 +233,14 @@ class DisLPLoss(nn.Module):
         self.base_temperature = base_temperature
         self.model = model
         self.loader = loader
-        # self.init_class_prototypes()
         # initialize learnable prototypes
         self.prototypes = nn.Parameter(torch.Tensor(self.args.n_cls, self.args.feat_dim))  # prototypes
-        # self.bn = nn.BatchNorm1d(self.args.feat_dim) if args.bn else nn.Identity()
-        if args.uniform_init:
-            nn.init.xavier_uniform_(self.prototypes)
-        else:
-            nn.init.normal_(self.prototypes, mean=0.0, std=0.01)
+        nn.init.normal_(self.prototypes, mean=0.0, std=0.01)
 
     def compute(self):
         num_cls = self.args.n_cls
         # l2-normalize the prototypes if not normalized
-        prototypes = F.normalize(self.prototypes, dim=1)  # Use prototypes
+        prototypes = F.normalize(self.prototypes, dim=1)
 
         labels = torch.arange(0, num_cls).cuda()
         labels = labels.contiguous().view(-1, 1)
@@ -257,11 +252,11 @@ class DisLPLoss(nn.Module):
             self.temperature)
 
         if self.args.modify_disloss:
-            logits = torch.matmul(prototypes, prototypes.T)
-            mean_prob_neg = (mask * torch.exp(logits).sum(1)) / mask.sum(1)
+            # logits = torch.matmul(prototypes, prototypes.T)
+            mean_prob_neg = (mask * torch.exp(logits)).sum(1)) / mask.sum(1)
         else:
             mean_prob_neg = torch.log((mask * torch.exp(logits)).sum(1)) / mask.sum(1)
-            mean_prob_neg = mean_prob_neg[~torch.isnan(mean_prob_neg)]
+        mean_prob_neg = mean_prob_neg[~torch.isnan(mean_prob_neg)]
 
         # loss
         loss = self.temperature / self.base_temperature * mean_prob_neg.mean()
@@ -271,12 +266,9 @@ class DisLPLoss(nn.Module):
     def update_prototypes(self):
         """Update prototypes using EMA during training"""
         if hasattr(self, 'ema_prototypes'):
-            # alpha = min(1.0 / (self.args.proto_M + 1), 0.5)
             with torch.no_grad():
                 self.ema_prototypes.data = (
                         self.args.proto_m * self.ema_prototypes + (1 - self.args.proto_m) * self.prototypes)
-            # self.prototypes.data = torch.tensor(self.ema_prototypes, device=self.ema_prototypes.device,
-            #                                     requires_grad=True)
             self.prototypes.data = self.ema_prototypes.clone().detach().requires_grad_(True)
         #  init ema_proto
         else:
@@ -288,7 +280,6 @@ class DisLPLoss(nn.Module):
             self.update_prototypes()
         # Compute loss using ema_prototypes
         loss = self.compute()
-        # loss += self.compute_center_loss()
 
         return loss
 

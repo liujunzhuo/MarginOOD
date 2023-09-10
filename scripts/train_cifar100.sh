@@ -1,12 +1,14 @@
 python train.py \
-    --in-dataset CIFAR-100\
+    --in-dataset CIFAR-100 \
     --id_loc /datasets/CIFAR100 \
     --gpu 0 \
     --seed 10 \
+    --cosine \
     --model resnet34 \
     --batch-size 512 \
     --epochs 500 \
     --proto_m 0.8 \
+    --ema \
     --w 0.1 \
     --arcface \
     --margins 0.1
