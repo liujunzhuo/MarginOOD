@@ -196,8 +196,7 @@ class MarginLoss(nn.Module):
                 phi = torch.where(logits > self.threshold, phi, logits - self.sinm)
             else:
                 phi = torch.where(logits > 0, phi, logits)
-            target = F.one_hot(labels, self.args.n_cls)
-            logits = target * phi + (1 - target) * logits
+            logits = mask * phi + (1 - mask) * logits
 
         feat_dot_prototype = torch.div(
             logits,
@@ -252,8 +251,7 @@ class DisLPLoss(nn.Module):
             self.temperature)
 
         if self.args.modify_disloss:
-            # logits = torch.matmul(prototypes, prototypes.T)
-            mean_prob_neg = (mask * torch.exp(logits)).sum(1)) / mask.sum(1)
+            mean_prob_neg = ((mask * torch.exp(logits)).sum(1))/mask.sum(1)
         else:
             mean_prob_neg = torch.log((mask * torch.exp(logits)).sum(1)) / mask.sum(1)
         mean_prob_neg = mean_prob_neg[~torch.isnan(mean_prob_neg)]
