@@ -175,7 +175,7 @@ class MarginLoss(nn.Module):
         self.register_buffer('threshold', threshold, persistent=False)
 
         # Didn't used in our paper. We use easy_margin instead.
-        sinm = torch.sin(self.margins) * margins
+        sinm = torch.sin(self.margins) * self.margins
         self.register_buffer('sinm', sinm, persistent=False)
 
     def forward(self, features, prototypes, labels):
