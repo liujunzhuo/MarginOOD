@@ -1,11 +1,15 @@
 # Improving Out-of-Distribution Detection with Margin-Based Prototype Learning
 
 This repository contains the offical PyTorch implementation of paper:
-Improving Out-of-Distribution Detection with Margin-Based Prototype Learning. ICONIP 2023
+[Improving Out-of-Distribution Detection with Margin-Based Prototype Learning.](https://link.springer.com/chapter/10.1007/978-981-99-8148-9_12) ICONIP 2023
 
 This code is developed based on the code of [CIDER](https://github.com/deeplearning-wisc/cider), and we appreciate their contributions very much. You can download the datasets and find the directory structure there.
 ## Overview
 ![method.png](method.png)
+
+We achieve the SOTA on CIFAR-100 and CIFAR-10 benchmark.
+![image](https://github.com/liujunzhuo/MarginOOD/assets/44314723/29542233-2a5a-408d-b136-6e1b514a07b9)
+
 
 ## Dependencies
 Recommend:
